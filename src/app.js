@@ -1,11 +1,7 @@
-const express = require('express')
-const app = express()
-const port = 4000
+var express = require('express');
+var router = express.Router();
+const login = require('./components/login/routes');
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+router.use(login);
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+module.exports = router;
