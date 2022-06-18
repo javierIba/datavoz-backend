@@ -1,5 +1,7 @@
 const mysql = require("mysql")
 
+
+
 function tipoUsuarioPool(pool,data,callback){
 
     let comprobarExistenciaUsuarioQuery = "select tipo from usuarios where usuario = ?"
