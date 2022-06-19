@@ -1,7 +1,21 @@
 const mysql = require("mysql")
 
 
+function agregarEstudioPool(pool,data,callback){
+    let agregarEstudioQuery = "insert into estudio (codEstudio,nombreEstudio,fechaInicio,fechaTermino,porcentajeTeoricoEstudio,tipoSupervision,metodo,duracionPromedioEncuesta,duracionMinima,muestraTotal) values (?,?,?,?,?,?,?,?,?,?)"
+    let query = mysql.format(agregarEstudioQuery,[data.codEstudio,data.nombreEstudio,data.fechaInicio,data.fechaTermino
+        ,data.porcentajeTeoricoEstudio,data.tipoSupervision,data.metodo,data.duracionPromedioEncuesta,data.duracionMinima,data.muestraTotal]);
+        pool.getConnection(function(err,connection){
+            if(err){
+                console.log("error en la base de datos");
+            };
+            connection.query(query,function(err,result){
 
+                callback(result,err)
+                connection.release()
+            })
+        })
+}
 function tipoUsuarioPool(pool,data,callback){
 
     let comprobarExistenciaUsuarioQuery = "select tipo from usuarios where usuario = ?"
@@ -48,5 +62,6 @@ function insertUsuarioPool(pool,data,callback){
 module.exports = {
     insertUsuarioPool,
     comprobarExistenciaUsuarioPool,
-    tipoUsuarioPool
+    tipoUsuarioPool,
+    agregarEstudioPool
 }
