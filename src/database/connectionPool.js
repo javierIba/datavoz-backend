@@ -1,19 +1,21 @@
 const mysql = require("mysql")
 
 function listarEstudioPorIdPool(pool, callback, data){
-    let listarEstudioPorId = "Select * from estudio where codEstudio = ?";
+    let listarEstudioPorId = "Select * from estudios where codEstudio = ?";
     let arrayData = [data]
     queryConData(listarEstudioPorId,pool,callback,arrayData);
 }
 function listarEstudioPool(pool, callback) {
-    let listarEncuestasQuery = "Select codEstudio,nombreEstudio,baseDeDatos,pautaEncuesta from estudio";
+    let listarEncuestasQuery = "Select codEstudio,nombreEstudio from estudios";
     querySinData(listarEncuestasQuery, pool, callback);
 }
 
 function agregarEstudioPool(pool, data, callback) {
-    let agregarEstudioQuery = "insert into estudio (codEstudio,nombreEstudio,fechaInicio,fechaTermino,porcentajeTeoricoEstudio,tipoSupervision,metodo,duracionPromedioEncuesta,duracionMinima,muestraTotal,baseDeDatos,pautaEncuesta) values (?,?,?,?,?,?,?,?,?,?,?,?)"
-    let arrayData = [data.codEstudio, data.nombreEstudio, data.fechaInicio, data.fechaTermino, data.porcentajeTeoricoEstudio, data.tipoSupervision, data.metodo, data.duracionPromedioEncuesta, data.duracionMinima, data.muestraTotal, data.baseDeDatos, data.pautaEncuesta]
-    queryConData(agregarEstudioQuery, pool, callback, arrayData)
+
+    let agregarEstudioQuery = "insert into estudios (codEstudio,supervisor,nombreEstudio,fechaInicio,fechaTermino,porcentajeTeoricoEstudio,tipoSupervision,metodo,duracionPromedioEncuesta,duracionMinima,muestraTotal) values (?,?,?,?,?,?,?,?,?,?,?)"
+    let arrayData = [data.codEstudio,data.rutSupervisor, data.nombreEstudio, data.fechaInicio, data.fechaTermino, data.porcentajeTeoricoEstudio, data.tipoSupervision, data.metodo, data.duracionPromedioEncuesta, data.duracionMinima, data.muestraTotal]
+
+    queryConData(agregarEstudioQuery, pool, callback, arrayData)    
 }
 function tipoUsuarioPool(pool, data, callback) {
 

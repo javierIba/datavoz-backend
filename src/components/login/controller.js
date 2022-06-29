@@ -46,27 +46,16 @@ function login(req,res){
         if(cantidadUsuarios>0){
             
             token = jwt.sign(usuario,'datavozJEJE')
-            res.status(200).json({message:"autenticado rei",token:token})
+            res.status(200).json({message:"autenticado",token:token})
         }else{
             // res.status(403).json("El usuario o la contraseña se encuentran mal escritas")
-            res.status(403).json({message:"N0 por pel0n"})
+            res.status(403).json({message:"Datos de usuario incorrectos"})
         }
     })
 
 
 }
-/*poner middelwar de autenticacion de usuario
 
-lkadsl}kñdasklñjas}dñklasd
-dsa
-das
-dsa
-dsa
-asd
-das
-dsalñjkda{sjñkasd
-sdañlkasd}
-*/
 function insertUsuario(req, res){
     const { usuario, pass, nombre,rut,email,telefono } = req.body;
     const data = {

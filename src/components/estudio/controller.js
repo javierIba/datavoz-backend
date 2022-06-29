@@ -6,6 +6,7 @@ function nuevaEncuesta(req, res) {
     nombreEstudio,
     fechaInicio,
     fechaTermino,
+    rutSupervisor,
     porcentajeTeoricoEstudio,
     tipoSupervision,
     metodo,
@@ -19,6 +20,7 @@ function nuevaEncuesta(req, res) {
     codEstudio: codEstudio,
     nombreEstudio: nombreEstudio,
     fechaInicio: fechaInicio,
+    rutSupervisor:rutSupervisor,
     fechaTermino: fechaTermino,
     porcentajeTeoricoEstudio: porcentajeTeoricoEstudio,
     tipoSupervision: tipoSupervision,
@@ -33,6 +35,7 @@ function nuevaEncuesta(req, res) {
     if (err && err.code == "ER_DUP_ENTRY") {
       res.status(409).json({ message: "Estudio duplicado" });
     } else {
+      console.log(err)
       res.status(201).json({ message: "Estudio registrado exitosamente!" });
     }
   });
