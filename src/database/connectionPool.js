@@ -1,4 +1,15 @@
-const mysql = require("mysql")
+const mysql = require("mysql2")
+
+
+function crearPautaEncuestaPool(pool, callback, data){
+    let insertarJsonPreguntas = "UPDATE estudios SET preguntas = ? WHERE codEstudio = ?;";
+    let arrayData = [JSON.stringify({preguntas:data.preguntas}),data.codEstudio];
+
+    queryConData(insertarJsonPreguntas,pool,callback,arrayData);
+}
+
+
+
 
 function listarEstudioPorIdPool(pool, callback, data){
     let listarEstudioPorId = "Select * from estudios where codEstudio = ?";
@@ -47,8 +58,8 @@ function comprobarExistenciaUsuarioPool(pool, data, callback) {
 }
 
 function insertUsuarioPool(pool, data, callback) {
-    let insertQuery = "insert into usuarios (usuario,pass,nombre,rut,email,telefono,tipo) values(?,?,?,?,?,?,?)"
-    let arrayData = [data.usuario, data.pass, data.nombre, data.rut, data.email, data.telefono, data.tipo]
+    let insertQuery = "insert into usuarios (rut,usuario,pass,nombre,email,telefono,tipo) values(?,?,?,?,?,?,?)"
+    let arrayData = [ data.rut,data.usuario, data.pass, data.nombre, data.email, data.telefono, data.tipo]
     queryConData(insertQuery, pool, callback,arrayData)
 }
 
@@ -69,6 +80,7 @@ function querySinData(consulta, pool, callback) {
 }
 function queryConData(consulta, pool, callback, array) {
     let query = mysql.format(consulta, array);
+    console.log(query)
     pool.getConnection(function (err, connection) {
         if (err) {
             console.log("error en la base de datos");
@@ -85,5 +97,6 @@ module.exports = {
     tipoUsuarioPool,
     agregarEstudioPool,
     listarEstudioPool,
-    listarEstudioPorIdPool
+    listarEstudioPorIdPool,
+    crearPautaEncuestaPool
 }

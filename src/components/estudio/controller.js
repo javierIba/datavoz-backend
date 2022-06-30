@@ -1,4 +1,4 @@
-const { agregarEstudio, listarEstudio, listarEstudioPorId } = require('./../../database/connectionConfig')
+const { agregarEstudio, listarEstudio, listarEstudioPorId,crearPautaEncuestaDb } = require('./../../database/connectionConfig')
 
 function nuevaEncuesta(req, res) {
   const {
@@ -62,9 +62,27 @@ function listarEstudioPorIdController(req, res) {
     }
   })
 }
+
+function crearPautaEncuesta(req,res){
+  const {codEstudio,preguntas} = req.body;
+  let data = {
+    codEstudio,
+    preguntas
+  }
+  crearPautaEncuestaDb(data,(result, err) => {
+    if (err && err.code == "ER_DUP_ENTRY") {
+      res.status(409).json({ message: "Estudio duplicado" });
+    } else {
+      console.log(err)
+      res.status(201).json({ message: "Estudio registrado exitosamente!" });
+    }
+  })
+
+}
 module.exports = {
   nuevaEncuesta,
   listarEncuestas,
-  listarEstudioPorIdController
+  listarEstudioPorIdController,
+  crearPautaEncuesta
 
 }

@@ -1,13 +1,18 @@
-var mysql = require('mysql');
+var mysql = require('mysql2');
 const {databaseInfo} = require('./keyDatabase')
 const {insertUsuarioPool,
     comprobarExistenciaUsuarioPool,
     tipoUsuarioPool,
     agregarEstudioPool,
     listarEstudioPool,
-    listarEstudioPorIdPool} = require('./connectionPool')
+    listarEstudioPorIdPool,
+    crearPautaEncuestaPool} = require('./connectionPool')
 
 var pool = mysql.createPool(databaseInfo);
+
+function crearPautaEncuestaDb(data,callback){
+    crearPautaEncuestaPool(pool,callback,data);
+}
 function listarEstudioPorId(data,callback){
     listarEstudioPorIdPool(pool,callback,data);
 }
@@ -24,7 +29,7 @@ function comprobarExistenciaUsuario(data,callback){
     comprobarExistenciaUsuarioPool(pool,data,callback);
 }
 
-function insertUsuarioBd(callback){
+function insertUsuarioBd(data,callback){
     insertUsuarioPool(pool,data,callback);
 }
 
@@ -35,5 +40,6 @@ module.exports = {
     tipoUsuario,
     agregarEstudio,
     listarEstudio,
-    listarEstudioPorId
+    listarEstudioPorId,
+    crearPautaEncuestaDb
 }
