@@ -8,7 +8,13 @@ function crearPautaEncuestaPool(pool, callback, data){
     queryConData(insertarJsonPreguntas,pool,callback,arrayData);
 }
 
+ function subirCsvPool(pool, data, callback){
+    let codEstudio =  data[0].codEstudio;
+    let insertarJsonPreguntas = "UPDATE estudios SET DbPreguntas = ? WHERE codEstudio = ?;";
+    let arrayData =  [JSON.stringify({DbPreguntas:data.data}),codEstudio];
 
+    queryConData(insertarJsonPreguntas,pool,callback,arrayData);
+}
 
 
 function listarEstudioPorIdPool(pool, callback, data){
@@ -98,5 +104,6 @@ module.exports = {
     agregarEstudioPool,
     listarEstudioPool,
     listarEstudioPorIdPool,
-    crearPautaEncuestaPool
+    crearPautaEncuestaPool,
+    subirCsvPool
 }

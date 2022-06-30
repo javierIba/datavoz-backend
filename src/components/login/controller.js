@@ -25,15 +25,10 @@ function observadorEstadoLoginUsuario(req,res){
             })
             }
 
-          })
-             
+          })  
           }
       })
-    
   }
-  
-
-
 }
 function login(req,res){
     const { usuario, pass } = req.body;

@@ -6,15 +6,19 @@ const {insertUsuarioPool,
     agregarEstudioPool,
     listarEstudioPool,
     listarEstudioPorIdPool,
-    crearPautaEncuestaPool} = require('./connectionPool')
+    crearPautaEncuestaPool,
+    subirCsvPool
+} = require('./connectionPool')
 
 var pool = mysql.createPool(databaseInfo);
-
+ function subirCsvBd(data,callback){
+    subirCsvPool(pool,data,callback)
+}
 function crearPautaEncuestaDb(data,callback){
     crearPautaEncuestaPool(pool,callback,data);
 }
 function listarEstudioPorId(data,callback){
-    listarEstudioPorIdPool(pool,callback,data);
+    listarEstudioPorIdPool(pool,data,callback,);
 }
 function listarEstudio(callback){
     listarEstudioPool(pool,callback)
@@ -41,5 +45,6 @@ module.exports = {
     agregarEstudio,
     listarEstudio,
     listarEstudioPorId,
-    crearPautaEncuestaDb
+    crearPautaEncuestaDb,
+    subirCsvBd
 }
