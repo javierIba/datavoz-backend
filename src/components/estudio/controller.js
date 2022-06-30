@@ -93,7 +93,7 @@ function crearPautaEncuesta(req, res) {
 
 function subirCvsController(req, res) {
   const file = req.files;
-  let objet = file.data.data.toString()
+  console.log(file)
 
   file.data.mv(__dirname + file.data.tempFilePath)
 
@@ -104,6 +104,7 @@ function subirCvsController(req, res) {
     .on('data', (data) => results.push(data))
     .on('end', () => {
       let data = results
+      console.log(results)
       var connect = mysql.createConnection({
         host: "localhost",
         user: "root",

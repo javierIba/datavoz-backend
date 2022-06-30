@@ -17,7 +17,8 @@ function crearPautaEncuestaPool(pool, callback, data){
 }
 
 
-function listarEstudioPorIdPool(pool, callback, data){
+function listarEstudioPorIdPool(pool, data,callback ){
+    console.log(data)
     let listarEstudioPorId = "Select * from estudios where codEstudio = ?";
     let arrayData = [data]
     queryConData(listarEstudioPorId,pool,callback,arrayData);
